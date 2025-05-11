@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="AbstractFactory\" />
     <Folder Include="Builder\" />
     <Folder Include="Prototype\" />
     <Folder Include="Singleton\" />
