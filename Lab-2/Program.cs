@@ -1,5 +1,6 @@
 ﻿using AbstractFactory;
 using FactoryMethod;
+using Singleton;
 using System.Text;
 class Program
 {
@@ -20,6 +21,11 @@ class Program
                                                   // буквально буквою помилитись і все смерть :D
         Console.WriteLine($"Фабрика клепає Balaxy пристрої: {laptop.GetType().Name}, {phone.GetType().Name}");
         Console.WriteLine($"Друга фабрика клепає IProne пристрої: {IProne.GetType().Name}");
+        Console.WriteLine();
+        // 3
+        var a1 = Authenticator.GetInstance();
+        var a2 = Authenticator.GetInstance();
+        Console.WriteLine($"Перевіряємо чи однакові: {ReferenceEquals(a1, a2)}");
         Console.WriteLine();
     }
 }
