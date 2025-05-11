@@ -1,4 +1,5 @@
 ﻿using AbstractFactory;
+using Builder;
 using FactoryMethod;
 using Prototype;
 using Singleton;
@@ -37,5 +38,30 @@ class Program
         var clone = (Virus)virus.Clone();
         Console.WriteLine("Клонований вірус:");
         clone.Print();
+        Console.WriteLine();
+        // 5
+        var hero = new HeroBuilder()
+            .SetName("Бермольд")
+            .SetBody("Атлетичний")
+            .SetHairColor("Червоно малинове") //:D
+            .SetEyeColor("Ярко червоні") //Типу як в бісинів з D&D в них вони трошки на демонічні схожі але ближче до людських
+            .AddItem("Адамантовий меч")
+            .AddItem(" Адамантова пластинчата броня вкрита драконячим барвником")
+            .AddAction("Врятував смарагдовий гай")
+            .AddAction("Врятував Місячні вежі")
+            .Build();
+        hero.Show();
+
+        var enemy = new EnemyBuilder()
+            .SetName("генерал Кетерік Торм")
+            .SetBody("Високий")
+            .SetHairColor("Біле")
+            .SetEyeColor("Зелені") // не помню якшо чесно
+            .AddItem("Молот Торма")
+            .AddItem("Щит")
+            .AddItem("Обладунки Обійми Жерця")
+            .AddAction("Наклав прокляття тіней на Місячні вежі")
+            .Build();
+        enemy.Show();
     }
 }
