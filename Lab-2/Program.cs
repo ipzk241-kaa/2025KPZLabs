@@ -1,5 +1,6 @@
 ﻿using AbstractFactory;
 using FactoryMethod;
+using Prototype;
 using Singleton;
 using System.Text;
 class Program
@@ -27,5 +28,14 @@ class Program
         var a2 = Authenticator.GetInstance();
         Console.WriteLine($"Перевіряємо чи однакові: {ReferenceEquals(a1, a2)}");
         Console.WriteLine();
+        // 4
+        var virus = new Virus("Alpha", "Corona", 0.1, 2);
+        virus.AddChild(new Virus("Delta", "Mutation", 0.05, 1));
+        virus.AddChild(new Virus("Gamma", "Mutation", 0.04, 1));
+        Console.WriteLine("Створений вірус:");
+        virus.Print();
+        var clone = (Virus)virus.Clone();
+        Console.WriteLine("Клонований вірус:");
+        clone.Print();
     }
 }
