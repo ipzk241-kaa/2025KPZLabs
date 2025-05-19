@@ -1,6 +1,7 @@
 ﻿using Adapter;
 using Bridge;
 using Decorator;
+using Proxy;
 using System.Text;
 
 class Program
@@ -58,6 +59,20 @@ class Program
         circle.Draw();
         square.Draw();
         triangle.Draw();
+
+        //             ПРОКСІ
+        Console.WriteLine();
+        string path = "Text.txt";
+        File.WriteAllText(path, "Рандомний\nТекст!");
+
+        Console.WriteLine("=== SmartTextChecker ===");
+        SmartTextChecker checker = new SmartTextChecker();
+        checker.ReadFile(path);
+
+        Console.WriteLine("\n=== SmartTextReaderLocker ===");
+        SmartTextReaderLocker locker = new SmartTextReaderLocker(@"forbidden|secret|deny");
+        locker.ReadFile("secretfile.txt");
+        locker.ReadFile(path);
     }
 }
     
