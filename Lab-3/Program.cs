@@ -1,5 +1,6 @@
 ﻿using Adapter;
 using Bridge;
+using Composite;
 using Decorator;
 using Proxy;
 using System.Text;
@@ -73,6 +74,31 @@ class Program
         SmartTextReaderLocker locker = new SmartTextReaderLocker(@"forbidden|secret|deny");
         locker.ReadFile("secretfile.txt");
         locker.ReadFile(path);
+
+        //         Компонувальник
+        Console.WriteLine("=== LightHTML ===");
+
+        var table = new LightElementNode("table", DisplayType.Block, ClosingType.Normal);
+        table.CssClasses.Add("my-table");
+
+        for (int i = 0; i < 3; i++)
+        {
+            var row = new LightElementNode("tr");
+
+            for (int j = 0; j < 3; j++)
+            {
+                var cell = new LightElementNode("td");
+                cell.AddChild(new LightTextNode($"R{i + 1}C{j + 1}"));
+                row.AddChild(cell);
+            }
+
+            table.AddChild(row);
+        }
+
+        Console.WriteLine("OuterHTML:");
+        Console.WriteLine(table.OuterHTML);
+        Console.WriteLine("\nInnerHTML:");
+        Console.WriteLine(table.InnerHTML);
     }
 }
     
