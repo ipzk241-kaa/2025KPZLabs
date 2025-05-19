@@ -1,4 +1,5 @@
 ﻿using Adapter;
+using Decorator;
 using System.Text;
 
 class Program
@@ -6,6 +7,7 @@ class Program
     static void Main(string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
+        //         АДАПТЕР
         Console.WriteLine("=== Консольний логгер ===");
         Logger consoleLogger = new Logger();
         consoleLogger.Log("Це повідомлення логгеру.");
@@ -19,6 +21,27 @@ class Program
         fileLogger.Warn("Файлове попереджувальне повідомлення.");
 
         Console.WriteLine("Повідомлення збережені в 'log.txt'.");
+        //             ДЕКОРАТОР
+        Console.WriteLine();
+        Console.WriteLine("=== РПГ Герой з інвентарем ===");
+
+        IHero mage = new Mage();
+        mage = new Amulet(new Armor(mage));
+
+        Console.WriteLine(mage.GetDescription());
+        Console.WriteLine("Сила: " + mage.GetPower());
+
+        IHero warrior = new Warrior();
+        warrior = new Sword(new Sword(new Armor(warrior)));
+
+        Console.WriteLine("\n" + warrior.GetDescription());
+        Console.WriteLine("Сила: " + warrior.GetPower());
+
+        IHero palladin = new Palladin();
+        palladin = new Armor(new Amulet(palladin));
+
+        Console.WriteLine("\n" + palladin.GetDescription());
+        Console.WriteLine("Сила: " + palladin.GetPower());
     }
 }
     
