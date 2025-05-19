@@ -2,6 +2,7 @@
 using Bridge;
 using Composite;
 using Decorator;
+using Flyweight;
 using Proxy;
 using System.Text;
 
@@ -99,6 +100,26 @@ class Program
         Console.WriteLine(table.OuterHTML);
         Console.WriteLine("\nInnerHTML:");
         Console.WriteLine(table.InnerHTML);
+
+        //            ЛЕГКОВАГОВИК
+        Console.WriteLine();
+        string[] lines = {
+            "Тпу Назва Книги",
+            "Типу H2 тег",
+            "    Типу абзац з відступом.",
+            "Типу трошки длінного тексту шоб воно подумало шо це вже параграф.",
+            "Ше трошки тест H2",
+            "А тут уже знову звичайний параграф для цього треба більше символів.",
+            "Я втомився("
+        };
+        var factory = new HtmlFlyweightFactory();
+        var html = LightHtmlConverter.ConvertTextToHtml(lines, factory);
+
+        Console.WriteLine("== LightHTML з Flyweight ==");
+        Console.WriteLine(html.OuterHTML);
+
+        Console.WriteLine($"\nВсього унікальних тегів (Flyweight): {factory.SharedCount}");
+        Console.WriteLine($"Загальна кількість об'єктів LightNode: {TreeAnalyzer.CountNodes(html)}");
     }
 }
     
