@@ -103,15 +103,15 @@ class Program
 
         //            ЛЕГКОВАГОВИК
         Console.WriteLine();
-        string[] lines = {
-            "Тпу Назва Книги",
-            "Типу H2 тег",
-            "    Типу абзац з відступом.",
-            "Типу трошки длінного тексту шоб воно подумало шо це вже параграф.",
-            "Ше трошки тест H2",
-            "А тут уже знову звичайний параграф для цього треба більше символів.",
-            "Я втомився("
-        };
+        string path2 = "book.txt";
+
+        if (!File.Exists(path))
+        {
+            Console.WriteLine("Файл book.txt не знайдено!");
+            return;
+        }
+
+        string[] lines = File.ReadAllLines(path2);
         var factory = new HtmlFlyweightFactory();
         var html = LightHtmlConverter.ConvertTextToHtml(lines, factory);
 
