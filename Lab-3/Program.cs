@@ -1,4 +1,5 @@
 ﻿using Adapter;
+using Bridge;
 using Decorator;
 using System.Text;
 
@@ -42,6 +43,21 @@ class Program
 
         Console.WriteLine("\n" + palladin.GetDescription());
         Console.WriteLine("Сила: " + palladin.GetPower());
+
+        //                МІСТ
+        Console.WriteLine();
+        Console.WriteLine("=== Відтворення форми ===");
+
+        IRenderer vectorRenderer = new VectorRenderer();
+        IRenderer rasterRenderer = new RasterRenderer();
+
+        Shape circle = new Circle(vectorRenderer);
+        Shape square = new Square(rasterRenderer);
+        Shape triangle = new Triangle(vectorRenderer);
+
+        circle.Draw();
+        square.Draw();
+        triangle.Draw();
     }
 }
     
