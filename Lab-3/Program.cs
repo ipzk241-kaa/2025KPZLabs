@@ -4,6 +4,7 @@ using Command;
 using Composite;
 using Decorator;
 using Flyweight;
+using Iterator;
 using Proxy;
 using State;
 using System.Text;
@@ -118,7 +119,7 @@ class Program
         var html = LightHtmlConverter.ConvertTextToHtml(lines, factory);
 
         Console.WriteLine("== LightHTML з Flyweight ==");
-       // Console.WriteLine(html.OuterHTML);
+        // Console.WriteLine(html.OuterHTML);
 
         Console.WriteLine($"\nВсього унікальних тегів (Flyweight): {factory.SharedCount}");
         Console.WriteLine($"Загальна кількість об'єктів LightNode: {TreeAnalyzer.CountNodes(html)}");
@@ -192,7 +193,7 @@ class Program
         //              СТАН
         Console.WriteLine("\n=== СТАН ===");
         var div3 = new LightElementNode("div");
-        div.AddChild(new LightTextNode("Hello world"));
+        div3.AddChild(new LightTextNode("Hello world"));
 
         Console.WriteLine("Normal:");
         Console.WriteLine(div3.OuterHTML);
@@ -233,6 +234,37 @@ class Program
         // але за іншим шаблоном.
         Console.WriteLine($"Елементи: {visitor.ElementCount}, Текстові ноди(вузли): {visitor.TextCount}");
 
+        //          ІТЕРАТОР
+        Console.WriteLine("\n=== Ітератор ===");
+        var div6 = new LightElementNode("div");
+        div6.CssClasses.Add("container");
+
+        var header2 = new LightElementNode("h1");
+        header2.AddChild(new LightTextNode("Якись Текст"));
+
+        var paragraph2 = new LightElementNode("p");
+        paragraph2.AddChild(new LightTextNode("Тут типу абзац"));
+
+        div6.AddChild(header2);
+        div6.AddChild(paragraph2);
+
+        // Depth-first
+        Console.WriteLine("Depth-first:");
+        var dfs = new DepthFirstIterator(div6);
+        while (dfs.HasNext())
+        {
+            var node = dfs.Next();
+            Console.WriteLine($"Node: {node.GetType().Name}, OuterHTML: {node.OuterHTML}");
+        }
+
+        // Breadth-first
+        Console.WriteLine("\nBreadth-first:");
+        var bfs = new BreadthFirstIterator(div6);
+        while (bfs.HasNext())
+        {
+            var node = bfs.Next();
+            Console.WriteLine($"Node: {node.GetType().Name}, OuterHTML: {node.OuterHTML}");
+        }
     }
 }
     
