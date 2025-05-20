@@ -5,6 +5,7 @@ using Composite;
 using Decorator;
 using Flyweight;
 using Proxy;
+using State;
 using System.Text;
 
 class Program
@@ -170,7 +171,7 @@ class Program
         Console.WriteLine(webImage.LoadInfo);
         //            УВАГА!!! Далі йдуть завдання з МКР 1
         //            КОМАНДА
-        Console.WriteLine("\n=== КОМАНЛА ===");
+        Console.WriteLine("\n=== КОМАНДА ===");
         //  Стару команду AddChild було прийнято рішення
         //  залишити щоб працював старий код в Program.cs
         var html2 = new LightElementNode("div");
@@ -187,6 +188,21 @@ class Program
 
         Console.WriteLine(html2.OuterHTML);
 
+        //              СТАН
+        Console.WriteLine("\n=== СТАН ===");
+        var div3 = new LightElementNode("div");
+        div.AddChild(new LightTextNode("Hello world"));
+
+        Console.WriteLine("Normal:");
+        Console.WriteLine(div3.OuterHTML);
+
+        div3.SetState(new HoverState());
+        Console.WriteLine("\nHovered:");
+        Console.WriteLine(div3.OuterHTML);
+
+        div3.SetState(new ActiveState());
+        Console.WriteLine("\nActive:");
+        Console.WriteLine(div3.OuterHTML);
     }
 }
     

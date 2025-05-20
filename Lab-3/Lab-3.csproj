@@ -8,4 +8,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Composite\Iterator\" />
+    <Folder Include="Composite\Visitor\" />
+    <Folder Include="Composite\Template\" />
+  </ItemGroup>
+
 </Project>
