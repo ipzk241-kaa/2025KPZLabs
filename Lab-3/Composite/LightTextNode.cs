@@ -8,7 +8,10 @@
         {
             _text = text;
         }
-
+        public void setText(string t)
+        {
+            _text = t;
+        }
         public override string OuterHTML => _text;
         public override string InnerHTML => _text;
     }
