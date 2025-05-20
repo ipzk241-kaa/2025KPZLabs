@@ -117,7 +117,7 @@ class Program
         var html = LightHtmlConverter.ConvertTextToHtml(lines, factory);
 
         Console.WriteLine("== LightHTML з Flyweight ==");
-        Console.WriteLine(html.OuterHTML);
+       // Console.WriteLine(html.OuterHTML);
 
         Console.WriteLine($"\nВсього унікальних тегів (Flyweight): {factory.SharedCount}");
         Console.WriteLine($"Загальна кількість об'єктів LightNode: {TreeAnalyzer.CountNodes(html)}");
@@ -203,6 +203,17 @@ class Program
         div3.SetState(new ActiveState());
         Console.WriteLine("\nActive:");
         Console.WriteLine(div3.OuterHTML);
+
+        //           ШАБЛОННИЙ МЕТОД
+        Console.WriteLine("\n=== ШАБЛОННИЙ МЕТОД ===");
+        var div4 = new LightElementNode("div");
+        div4.CssClasses.Add("container");
+        div4.SetState(new HoverState());
+
+        div4.AddChild(new LightTextNode("МІЙ НОВИЙ LightHTML!"));
+
+        Console.WriteLine(div4.OuterHTML);
+
     }
 }
     
