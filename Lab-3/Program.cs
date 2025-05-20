@@ -1,5 +1,6 @@
 ﻿using Adapter;
 using Bridge;
+using Command;
 using Composite;
 using Decorator;
 using Flyweight;
@@ -167,6 +168,25 @@ class Program
         Console.WriteLine("Завантаження:");
         Console.WriteLine(localImage.LoadInfo);
         Console.WriteLine(webImage.LoadInfo);
+        //            УВАГА!!! Далі йдуть завдання з МКР 1
+        //            КОМАНДА
+        Console.WriteLine("\n=== КОМАНЛА ===");
+        //  Стару команду AddChild було прийнято рішення
+        //  залишити щоб працював старий код в Program.cs
+        var html2 = new LightElementNode("div");
+        var p = new LightElementNode("p");
+        var text2 = new LightTextNode("Старий текст");
+
+        var manager = new CommandManager();
+        manager.ExecuteCommand(new AddElementCommand(p, text2));
+        Console.WriteLine(html2.OuterHTML);
+        manager.ExecuteCommand(new AddElementCommand(html2, p));
+        Console.WriteLine(html2.OuterHTML);
+        manager.ExecuteCommand(new UpdateTextCommand(text2, "Новий текст"));
+        manager.ExecuteCommand(new AddCssClassCommand(p, "highlighted"));
+
+        Console.WriteLine(html2.OuterHTML);
+
     }
 }
     
