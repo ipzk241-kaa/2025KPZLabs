@@ -1,4 +1,6 @@
-﻿namespace Composite
+﻿using Visitor;
+
+namespace Composite
 {
     public class LightTextNode : LightNode
     {
@@ -22,6 +24,10 @@
         protected override void OnTextRendered()
         {
             Console.WriteLine($"[Text Rendered] {_text}");
+        }
+        public override void Accept(ILightNodeVisitor visitor)
+        {
+            visitor.VisitText(this);
         }
     }
 }
