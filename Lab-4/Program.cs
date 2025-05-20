@@ -1,10 +1,12 @@
 ﻿using ChainOfResponsibility;
+using Mediator;
 using System.Text;
 
 class Program
 {
     static void Main()
     {
+        //           ЛАНЦЮЖОК
         Console.OutputEncoding = Encoding.UTF8; 
         var basic = new BasicSupport();
         var tech = new TechnicalSupport();
@@ -40,5 +42,22 @@ class Program
                 break;
             }
         }
+
+        //            ПОСЕРЕДНИК
+        Console.WriteLine();
+        var runways = new[] { new Runway(), new Runway() };
+        var commandCentre = new CommandCentre(runways);
+
+        var aircraft1 = new Aircraft("Boeing-737", commandCentre);
+        var aircraft2 = new Aircraft("Airbus-A320", commandCentre);
+        var aircraft3 = new Aircraft("Antonov-A256", commandCentre);
+
+        aircraft1.RequestLanding();
+        aircraft2.RequestLanding();
+        aircraft3.RequestLanding();
+
+        aircraft1.RequestTakeOff();
+        aircraft2.RequestTakeOff();
+        aircraft3.RequestTakeOff();
     }
 }
