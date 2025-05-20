@@ -1,5 +1,6 @@
 ﻿using ChainOfResponsibility;
 using Mediator;
+using Memento;
 using System.Text;
 
 class Program
@@ -7,6 +8,7 @@ class Program
     static void Main()
     {
         //           ЛАНЦЮЖОК
+        Console.WriteLine("=== ЛАНЦЮЖОК ===");
         Console.OutputEncoding = Encoding.UTF8; 
         var basic = new BasicSupport();
         var tech = new TechnicalSupport();
@@ -44,7 +46,7 @@ class Program
         }
 
         //            ПОСЕРЕДНИК
-        Console.WriteLine();
+        Console.WriteLine("\n=== ПОСЕРЕДНИК ====");
         var runways = new[] { new Runway(), new Runway() };
         var commandCentre = new CommandCentre(runways);
 
@@ -59,5 +61,28 @@ class Program
         aircraft1.RequestTakeOff();
         aircraft2.RequestTakeOff();
         aircraft3.RequestTakeOff();
+
+        //           MEMENTO
+        Console.WriteLine("\n=== МЕМЕНТО ===");
+        var doc = new TextDocument();
+        var editor = new TextEditor(doc);
+
+        editor.Write("Рандомний текст!!! ");
+        editor.Show();
+
+        editor.Write("Дописуємо ше якусь фігню. ");
+        editor.Show();
+
+        editor.Undo();
+        editor.Show();
+
+        editor.Write("Переписали дописану фігню на іншу!");
+        editor.Show();
+
+        editor.Erase();
+        editor.Show();
+
+        editor.Undo();
+        editor.Show();
     }
 }
