@@ -1,4 +1,5 @@
-﻿namespace Composite
+﻿using State;
+namespace Composite
 {
     public delegate void EventHandler(string eventType, LightElementNode sender);
     public enum DisplayType { Block, Inline }
@@ -12,12 +13,13 @@
         public List<string> CssClasses { get; set; } = new();
         public List<LightNode> Children { get; set; } = new();
         private Dictionary<string, List<EventHandler>> _eventListeners = new();
-
+        private IRenderState _currentState;
         public LightElementNode(string tagName, DisplayType display = DisplayType.Block, ClosingType closing = ClosingType.Normal)
         {
             TagName = tagName;
             Display = display;
             Closing = closing;
+            _currentState = new NormalState();
         }
         public void AddEventListener(string eventType, EventHandler handler)
         {
@@ -46,16 +48,23 @@
             get
             {
                 string classes = CssClasses.Count > 0 ? $" class=\"{string.Join(" ", CssClasses)}\"" : "";
+                var style = _currentState.GetStyle();
+                var styleAttr = !string.IsNullOrWhiteSpace(style) ? $" style=\"{style}\"" : "";
                 if (Closing == ClosingType.SelfClosing)
-                    return $"\n<{TagName}{classes}/>\n";
+                    return $"<{TagName}{classes}{styleAttr} />";
                 else
-                    return $"\n<{TagName}{classes}>{InnerHTML}</{TagName}>\n";
+                    return $"<{TagName}{classes}{styleAttr}>{InnerHTML}</{TagName}>";
             }
         }
 
         public void AddChild(LightNode child)
         {
             Children.Add(child);
+        }
+
+        public void SetState(IRenderState state)
+        {
+            _currentState = state;
         }
     }
 }
