@@ -151,6 +151,22 @@ class Program
         button.Trigger("mouseover");
         button.Trigger("click");
         button.Trigger("blur");
+
+        //           СТРАТЕГІЯ
+        var localImage = new LightImageNode("file://photo.jpg", new FileLoadStrategy());
+        var webImage = new LightImageNode("https://imgur.com/logo.png", new NetworkLoadStrategy());
+
+        var div2 = new LightElementNode("div");
+        div2.AddChild(localImage);
+        div2.AddChild(webImage);
+
+        Console.WriteLine("HTML:");
+        Console.WriteLine(div.OuterHTML);
+        Console.WriteLine();
+
+        Console.WriteLine("Завантаження:");
+        Console.WriteLine(localImage.LoadInfo);
+        Console.WriteLine(webImage.LoadInfo);
     }
 }
     
