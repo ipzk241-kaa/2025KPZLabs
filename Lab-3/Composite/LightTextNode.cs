@@ -14,5 +14,14 @@
         }
         public override string OuterHTML => _text;
         public override string InnerHTML => _text;
+        protected override string RenderContent()
+        {
+            OnTextRendered();
+            return _text;
+        }
+        protected override void OnTextRendered()
+        {
+            Console.WriteLine($"[Text Rendered] {_text}");
+        }
     }
 }
