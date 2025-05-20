@@ -42,7 +42,7 @@ class Program
         Console.WriteLine("Сила: " + warrior.GetPower());
 
         IHero palladin = new Palladin();
-        palladin = new Armor(new Amulet(palladin));
+        palladin = new Armor(new Amulet(new Sword(palladin)));
 
         Console.WriteLine("\n" + palladin.GetDescription());
         Console.WriteLine("Сила: " + palladin.GetPower());
@@ -75,7 +75,6 @@ class Program
         SmartTextReaderLocker locker = new SmartTextReaderLocker(@"forbidden|secret|deny");
         locker.ReadFile("secretfile.txt");
         locker.ReadFile(path);
-
         //         Компонувальник
         Console.WriteLine("=== LightHTML ===");
 
@@ -120,6 +119,38 @@ class Program
 
         Console.WriteLine($"\nВсього унікальних тегів (Flyweight): {factory.SharedCount}");
         Console.WriteLine($"Загальна кількість об'єктів LightNode: {TreeAnalyzer.CountNodes(html)}");
+        //           УВАГА!!! Далі йдуть завдання з лабораторної роботи 4
+        //           Спостерігач
+        Console.WriteLine("\n=== СПОСТЕРІГАЧ ===");
+        var div = new LightElementNode("div");
+        var button = new LightElementNode("button");
+        var text = new LightTextNode("Натисни мене");
+
+        button.AddChild(text);
+        div.AddChild(button);
+
+        button.CssClasses.Add("some-button");
+        div.CssClasses.Add("some-div");
+        button.AddEventListener("click", (type, sender) =>
+        {
+            string label = sender.CssClasses.Count > 0 ? $".{sender.CssClasses[0]}" : $"<{sender.TagName}>";
+            Console.WriteLine($"Обробник: Ви натиснули на {label}!");
+        });
+
+        button.AddEventListener("mouseover", (type, sender) =>
+        {
+            string label = sender.CssClasses.Count > 0 ? $".{sender.CssClasses[0]}" : $"<{sender.TagName}>";
+            Console.WriteLine($"Обробник: Навели курсор на {label}.");
+        });
+
+        Console.WriteLine("HTML:");
+        Console.WriteLine(div.OuterHTML);
+        Console.WriteLine();
+
+        Console.WriteLine("Симуляція подій:");
+        button.Trigger("mouseover");
+        button.Trigger("click");
+        button.Trigger("blur");
     }
 }
     
