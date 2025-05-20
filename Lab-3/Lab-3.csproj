@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="Composite\Iterator\" />
-    <Folder Include="Composite\Visitor\" />
   </ItemGroup>
 
 </Project>

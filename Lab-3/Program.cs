@@ -7,6 +7,7 @@ using Flyweight;
 using Proxy;
 using State;
 using System.Text;
+using Visitor;
 
 class Program
 {
@@ -213,6 +214,24 @@ class Program
         div4.AddChild(new LightTextNode("МІЙ НОВИЙ LightHTML!"));
 
         Console.WriteLine(div4.OuterHTML);
+
+        //            ВІДВІДУВАЧ
+        Console.WriteLine("\n=== Відвідувач ===");
+        var div5 = new LightElementNode("div");
+        div.CssClasses.Add("wrapper");
+
+        var p1 = new LightElementNode("p");
+        p1.AddChild(new LightTextNode("Текст Текст"));
+        p1.AddChild(new LightTextNode("Ше одна стрічка тексту."));
+
+        div5.AddChild(p1);
+        div5.AddChild(new LightTextNode("Окремий текст"));
+
+        var visitor = new NodeCounterVisitor();
+        div5.Accept(visitor);
+        // в принципі щось подібне до TreeAnalyzer.CountNodes(html) з легковаговика
+        // але за іншим шаблоном.
+        Console.WriteLine($"Елементи: {visitor.ElementCount}, Текстові ноди(вузли): {visitor.TextCount}");
 
     }
 }

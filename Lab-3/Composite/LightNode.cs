@@ -1,7 +1,10 @@
-﻿namespace Composite
+﻿using Visitor;
+
+namespace Composite
 {
     public abstract class LightNode
     {
+        public abstract void Accept(ILightNodeVisitor visitor);
         public abstract string OuterHTML { get; }
         public abstract string InnerHTML { get; }
 

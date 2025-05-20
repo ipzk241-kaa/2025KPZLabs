@@ -1,4 +1,5 @@
 ﻿using State;
+using Visitor;
 namespace Composite
 {
     public delegate void EventHandler(string eventType, LightElementNode sender);
@@ -89,6 +90,10 @@ namespace Composite
                 return $"{openingTag}{content}";
             else
                 return $"{openingTag}{content}{closingTag}";
+        }
+        public override void Accept(ILightNodeVisitor visitor)
+        {
+            visitor.VisitElement(this);
         }
     }
 }
