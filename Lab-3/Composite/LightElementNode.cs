@@ -1,4 +1,5 @@
-﻿using State;
+﻿using Iterator;
+using State;
 using Visitor;
 namespace Composite
 {
@@ -94,6 +95,16 @@ namespace Composite
         public override void Accept(ILightNodeVisitor visitor)
         {
             visitor.VisitElement(this);
+        }
+
+        public ILightNodeIterator GetDepthFirstIterator()
+        {
+            return new DepthFirstIterator(this);
+        }
+
+        public ILightNodeIterator GetBreadthFirstIterator()
+        {
+            return new BreadthFirstIterator(this);
         }
     }
 }
